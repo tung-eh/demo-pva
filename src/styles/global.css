@@ -2,3 +2,7 @@ body {
   margin: 0;
   font-family: Ubuntu;
 }
+
+button {
+  font-family: inherit;
+}
