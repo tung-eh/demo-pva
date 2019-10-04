@@ -48,7 +48,11 @@ const RadioButtons = ({ value, onChange }) => {
   return (
     <Wrapper>
       {options.map((label, index) => (
-        <RadioButton active={index === value} onClick={() => onChange(index)}>
+        <RadioButton
+          key={index}
+          active={index === value}
+          onClick={() => onChange(index)}
+        >
           {label}
         </RadioButton>
       ))}

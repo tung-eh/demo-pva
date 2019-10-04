@@ -1,78 +1,53 @@
-import React, { useState } from "react"
+import React from "react"
 import styled from "styled-components"
 
-import RadioButtons from "./RadioButtons"
+import ImagePreview from "./ImagePreview"
+import PVAModal from "./PVAModal"
 
-const Wrapper = styled.div`
-  width: 400px;
-  background-color: white;
-  border-radius: 5px;
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+const FlipContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  perspective: 1000px;
+  :hover {
+    > div {
+      transform: rotateY(180deg);
+    }
+  }
 `
 
-const PVAModal1 = ({ image }) => {
-  const [pvaType, setPvaType] = useState(0)
+const FlipBox = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+`
 
-  return (
-    <Wrapper>
-      <h2
-        style={{
-          margin: "0 40px",
-          fontSize: 20,
-          textAlign: "center",
-          fontWeight: 500,
-        }}
-      >
-        How would you like people to see your artwork?
-      </h2>
-      <div
-        style={{
-          display: "flex",
-          margin: "40px 0",
-          justifyContent: "space-between",
-          alignSelf: "stretch",
-        }}
-      >
-        <RadioButtons value={pvaType} onChange={setPvaType} />
-        <div
-          style={{
-            width: 200,
-            height: 240,
-            padding: 4,
-            border: "1px solid #c4c4c4",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <img src={image} style={{ maxWidth: "100%", maxHeight: "100%" }} />
-        </div>
-      </div>
-      <button
-        style={{
-          width: 160,
-          border: "3px solid black",
-          fontSize: 14,
-          padding: "10px 20px",
-        }}
-      >
-        Mint
-      </button>
-      <a
-        style={{
-          textDecoration: "underline",
-          fontSize: 14,
-          color: "rgba(0,0,0,0.5)",
-          marginTop: 10,
-        }}
-      >
-        Go back
-      </a>
-    </Wrapper>
-  )
-}
+const FlipableImagePreview = styled(ImagePreview)`
+  position: absolute;
+  left: 0;
+  top: 0;
+  backface-visibility: hidden;
+`
+
+const PVAModal1 = props => (
+  <PVAModal
+    renderPreview={(image, publicImage) => (
+      <FlipContainer>
+        <FlipBox>
+          <FlipableImagePreview image={publicImage} />
+          <FlipableImagePreview
+            image={image}
+            style={{
+              transform: "rotateY(180deg)",
+            }}
+          />
+        </FlipBox>
+      </FlipContainer>
+    )}
+    {...props}
+  />
+)
 
 export default PVAModal1
