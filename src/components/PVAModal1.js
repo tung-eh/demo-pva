@@ -1,13 +1,23 @@
 import React from "react"
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 
 import ImagePreview from "./ImagePreview"
 import PVAModal from "./PVAModal"
+
+const flipKf = keyframes`
+  0% {
+    transform: rotateY(180deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+`
 
 const FlipContainer = styled.div`
   width: 100%;
   height: 100%;
   perspective: 1000px;
+  animation: ${flipKf} 0.8s;
   :hover {
     > div {
       transform: rotateY(180deg);
