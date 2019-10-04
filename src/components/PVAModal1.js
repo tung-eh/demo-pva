@@ -17,7 +17,6 @@ const FlipContainer = styled.div`
   width: 100%;
   height: 100%;
   perspective: 1000px;
-  animation: ${flipKf} 0.8s;
   :hover {
     > div {
       transform: rotateY(180deg);
@@ -32,6 +31,7 @@ const FlipBox = styled.div`
   text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
+  animation: ${flipKf} 0.8s;
 `
 
 const FlipableImagePreview = styled(ImagePreview)`
